@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
@@ -7,6 +7,7 @@ import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 function NewEntry({ user }) {
   const [title, setTitle] = useState("Park name");
   const [rating, setRating] = useState("1");
+  const [parks, setParks] = useState([]);
   const [comment, setComment] = useState(`
   Write something about your park here!  Let others know about your experience... 
   `);
@@ -37,6 +38,15 @@ function NewEntry({ user }) {
     });
   }
 
+  useEffect(() => {
+    fetch("https://developer.nps.gov/api/v1/parks?api_key=jiubTrXhccHzfcEc6ihhjVV18MssQBvGoLrHNkQw")
+      .then((r) => r.json())
+      .then((data) => {
+        setParks(data.data);
+        console.log(data.data)
+      });
+  }, []);
+
   return (
     <Wrapper>
       <WrapperChild>
@@ -44,13 +54,29 @@ function NewEntry({ user }) {
         <form className="box1" onSubmit={handleSubmit}>
           <FormField>
             <Label htmlFor="title">Title</Label>
-            <Input
+            {/* <Input
               type="text"
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-            />
+            /> */}
+      <select className="" type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)}>
+      <option value="">--Please choose an option--</option>
+      {parks.map((parks) => {
+            return(
+                <option value={parks.fullName} key={parks.fullName}>{parks.fullName}</option>
+            )
+        })}
+      </select>
           </FormField>
+
+
+
+
+
+
+
+
           {/* <FormField>
             <Label htmlFor="rating">Rating</Label>
             <Input

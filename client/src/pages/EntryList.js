@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
-import { Box, Button } from "../styles";
+import { Box , Button } from "../styles";
 import styled from "styled-components";
 import '../styles/App.css';
 
@@ -29,7 +29,7 @@ function EntryList({user}) {
       },
       body: JSON.stringify({ rating: 8 }),
     })
-      .then((r) => r.json())
+
       .then(console.log("update"));
 
   }

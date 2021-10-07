@@ -2,8 +2,13 @@ class EntriesController < ApplicationController
     before_action :authorize
 
     def index
-        render json: Entry.all
+        entries = @current_user.entries
+        render json: entries
     end
+
+    # def index
+    #     render json: Entry.all
+    # end
     def show
         entry = Entry.find_by(id: params[:id])
         render json: entry
@@ -42,10 +47,20 @@ class EntriesController < ApplicationController
     #     end
     # end
 
+    # def update
+    #     entry = @current_user.entries.find_by(id: params[:id])
+    #    entry.rating = entry.rating + 1
+    #    entry.save
+    # end
+
     def update
         entry = @current_user.entries.find_by(id: params[:id])
-       entry.rating = entry.rating + 1
-       entry.save
+        if entry.rating < 10
+            entry.rating = entry.rating + 1
+            entry.save
+        else
+            entry.save
+        end
     end
 
     private
