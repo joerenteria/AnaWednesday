@@ -1,10 +1,20 @@
 class CreateEntries < ActiveRecord::Migration[6.1]
   def change
-    create_table :entries do |t|
+    create_table :pages do |t|
       t.belongs_to :user, null: false, foreign_key: true
-      t.string :title
-      t.text :comment
-      t.integer :rating
+      t.string :directory
+
+      t.string :title1
+      t.text :comment1
+      t.string :image1
+
+      t.string :title2
+      t.text :comment2
+      t.string :image2
+
+      t.string :title3
+      t.text :comment3
+      t.string :image3
 
       t.timestamps
     end

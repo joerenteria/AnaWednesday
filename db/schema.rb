@@ -12,14 +12,21 @@
 
 ActiveRecord::Schema.define(version: 2021_10_01_160754) do
 
-  create_table "entries", force: :cascade do |t|
+  create_table "pages", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "title"
-    t.text "comment"
-    t.integer "rating"
+    t.string "directory"
+    t.string "title1"
+    t.text "comment1"
+    t.string "image1"
+    t.string "title2"
+    t.text "comment2"
+    t.string "image2"
+    t.string "title3"
+    t.text "comment3"
+    t.string "image3"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_entries_on_user_id"
+    t.index ["user_id"], name: "index_pages_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -31,5 +38,5 @@ ActiveRecord::Schema.define(version: 2021_10_01_160754) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "entries", "users"
+  add_foreign_key "pages", "users"
 end

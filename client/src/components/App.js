@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "../pages/Login";
-import EntryList from "../pages/EntryList";
-import NewEntry from "../pages/NewEntry";
+import Account from "../pages/Account";
+import NewPage from "../pages/NewPage";
+import Signup from "../pages/Signup";
+import '../styles/App.css'
 
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
     });
   }, []);
 
-  if (!user) return <Login onLogin={setUser} />;
+
 
   return (
     <>
@@ -27,13 +29,26 @@ function App() {
         <Switch>
 
 
+        <Route path="/login">
+        <Login onLogin={setUser} />;
+          </Route>
+
+          <Route path="/signup">
+        <Signup onLogin={setUser} />;
+          </Route>
+
 
           <Route path="/new">
-            <NewEntry user={user} />
+            <NewPage user={user} />
           </Route>
+          <Route path="/account">
+            <Account  user={user} />
+          </Route>
+
           <Route path="/">
-            <EntryList  user={user} />
+        <Login onLogin={setUser} />;
           </Route>
+
         </Switch>
       </main>
     </>

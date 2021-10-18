@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Error, Input, FormField, Label, Textarea } from "../styles";
 
 function SignUpForm({ onLogin }) {
-  const [username, setUsername] = useState("");
+  const [username, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -37,63 +37,41 @@ function SignUpForm({ onLogin }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <FormField>
-        <Label htmlFor="username">Username</Label>
-        <Input
+    <form className="form1" onSubmit={handleSubmit}>
+
+        <label htmlFor="username">email</label>
+        <input
           type="text"
           id="username"
           autoComplete="off"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
-      </FormField>
-      <FormField>
-        <Label htmlFor="password">Password</Label>
-        <Input
+
+        <label htmlFor="password">password</label>
+        <input
           type="password"
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
         />
-      </FormField>
-      <FormField>
-        <Label htmlFor="password">Password Confirmation</Label>
-        <Input
+
+        <label htmlFor="password">confirm password</label>
+        <input
           type="password"
           id="password_confirmation"
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
           autoComplete="current-password"
         />
-      </FormField>
-      {/* <FormField>
-        <Label htmlFor="imageUrl">Profile Image</Label>
-        <Input
-          type="text"
-          id="imageUrl"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
-      </FormField>
-      <FormField>
-        <Label htmlFor="bio">Bio</Label>
-        <Textarea
-          rows="3"
-          id="bio"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-        />
-      </FormField> */}
-      <FormField>
+
         <button className="link1" type="submit">{isLoading ? "Loading..." : "Sign Up"}</button>
-      </FormField>
-      <FormField>
+
         {errors.map((err) => (
-          <Error key={err}>{err}</Error>
+          <div className="error" key={err}>{err}</div>
         ))}
-      </FormField>
+
     </form>
   );
 }

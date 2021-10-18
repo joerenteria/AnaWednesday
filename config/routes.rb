@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   get "/me", to: "users#show"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
-  resources :entries
-  # delete "/entries/:id", to: "entries#destroy"
-  # patch "/entries/:id", to: "entries#update"
-  # get "/entries", to: "entries#index"
-  # get "/entries/:id", to: "entries#show"
-  # post "/entries", to: "entries#create"
+  resources :pages
+  # delete "/pages/:id", to: "pages#destroy"
+  # patch "/pages/:id", to: "pages#update"
+  # get "/pages", to: "pages#index"
+  # get "/pages/:id", to: "pages#show"
+  # post "/pages", to: "pages#create"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
