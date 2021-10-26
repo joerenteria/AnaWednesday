@@ -4,5 +4,5 @@ class Page < ApplicationRecord
   validates :directory, uniqueness: true
   validates :directory, format: { with: /\A[a-z0-9]+\z/ }
   validates :title1, presence: true
-  validates :comment1, length: {minimum: 1}
+  validates :content1, length: {minimum: 1}
 end

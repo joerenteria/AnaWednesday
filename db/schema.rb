@@ -12,17 +12,20 @@
 
 ActiveRecord::Schema.define(version: 2021_10_01_160754) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "pages", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "directory"
     t.string "title1"
-    t.text "comment1"
+    t.text "content1"
     t.string "image1"
     t.string "title2"
-    t.text "comment2"
+    t.text "content2"
     t.string "image2"
     t.string "title3"
-    t.text "comment3"
+    t.text "content3"
     t.string "image3"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -30,10 +33,8 @@ ActiveRecord::Schema.define(version: 2021_10_01_160754) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
+    t.string "email"
     t.string "password_digest"
-    t.string "image_url"
-    t.string "bio"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -1,40 +1,47 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 
 function LoginForm({ onLogin }) {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const history = useHistory();
+
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
-    fetch("/login", {
+    fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        r.json().then((user) => onLogin(user));
+        r.json().then((user) => onLogin(user))
+        .then(()=>history.push("/account"))
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
     });
   }
 
-  return (
+  return (<div>
+
+    <h1>Log in</h1>
+
     <form className="form1" onSubmit={handleSubmit}>
 
-        <label htmlFor="username">email</label>
+        <label htmlFor="email">email</label>
         <input
           type="text"
-          id="username"
+          id="email"
           autoComplete="off"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <label htmlFor="password">password</label>
@@ -45,9 +52,9 @@ function LoginForm({ onLogin }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
+<br/>
         <button className="link1" variant="fill" color="primary" type="submit">
-          {isLoading ? "Loading..." : "Login"}
+          {isLoading ? "Loading..." : "Submit"}
         </button>
 
         {errors.map((err) => (
@@ -55,6 +62,7 @@ function LoginForm({ onLogin }) {
         ))}
 
     </form>
+    </div>
   );
 }
 

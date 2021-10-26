@@ -3,31 +3,44 @@ import { Link } from "react-router-dom";
 
 function NavBar({ user, setUser }) {
   function handleLogoutClick() {
-    fetch("/logout", { method: "DELETE" }).then((r) => {
+    fetch("/api/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
         setUser(null);
       }
     });
   }
 
-  return (<div>
 
-      <Link className="link1" as={Link} to="/signup">
-          sign up
+  return (<div className="navbar">
+
+<div className="logo">🌮 TacoPage</div>
+<div className="navslide">
+        <Link className="link1" as={Link} to="/signup">
+          Sign up
         </Link>
 
-      <Link className="link1" as={Link} to="/login">
-          log in
+        {user ? (
+        <Link className="link1" to="/" onClick={handleLogoutClick}>
+          Log out
         </Link>
+        ) : (
+        <Link className="link1" as={Link} to="/login">
+          Log in
+        </Link>
+        )}
 
-        <Link className="link1" as={Link} to="/new">
-          create page
-        </Link>
+        
+
+        {user ? (
         <Link className="link1" as={Link} to="/account">
-          my account
+          My pages
         </Link>
+        
+        ) : (
+        ""
+        )}
        
-        <Link className="link1" to="/" onClick={handleLogoutClick}>logout</Link>
+       </div>
 
 </div>
   );

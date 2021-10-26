@@ -1,54 +1,55 @@
 import React, { useState } from "react";
-import { Button, Error, Input, FormField, Label, Textarea } from "../styles";
+import { useHistory } from "react-router";
 
 function SignUpForm({ onLogin }) {
-  const [username, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [bio, setBio] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
     setErrors([]);
     setIsLoading(true);
-    fetch("/signup", {
+    fetch("/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,
+        email,
         password,
         password_confirmation: passwordConfirmation,
-        image_url: imageUrl,
-        bio,
+
       }),
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
         r.json().then((user) => onLogin(user));
+        history.push("/account");
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
     });
   }
 
-  return (
+  return (<div>
+    <h1>Sign up</h1>
     <form className="form1" onSubmit={handleSubmit}>
 
-        <label htmlFor="username">email</label>
+        <label htmlFor="email">email</label>
         <input
           type="text"
-          id="username"
+          id="email"
           autoComplete="off"
-          value={username}
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label htmlFor="password">password</label>
+        <label htmlFor="password">password <span className="blue">*no spaces</span></label>
         <input
           type="password"
           id="password"
@@ -65,14 +66,15 @@ function SignUpForm({ onLogin }) {
           onChange={(e) => setPasswordConfirmation(e.target.value)}
           autoComplete="current-password"
         />
-
-        <button className="link1" type="submit">{isLoading ? "Loading..." : "Sign Up"}</button>
+<br/>
+        <button className="link1" type="submit">{isLoading ? "Loading..." : "Submit"}</button>
 
         {errors.map((err) => (
           <div className="error" key={err}>{err}</div>
         ))}
 
     </form>
+    </div>
   );
 }
 
